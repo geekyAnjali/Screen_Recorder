@@ -16,7 +16,7 @@ class MainWindowUI(MainWindowUI):
         self.start_recording()
 
     def init_recording_ui(self):
-        self.start_time = datetime.datetime.now()
+        self.seconds = 0
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_timer)
         self.toggle_rcrd_bttn.clicked.connect(self.toggle_recording)
@@ -57,9 +57,11 @@ class MainWindowUI(MainWindowUI):
         self.close()
 
     def update_timer(self):
-        elapsed_time = datetime.datetime.now() - self.start_time
-        time_str = str(elapsed_time).split('.')[0]  # Format elapsed time as HH:MM:SS
-        self.label.setText(time_str)
+        self.seconds += 1
+        hours = self.seconds // 3600
+        minutes = (self.seconds // 60) % 60
+        seconds = self.seconds % 60
+        self.label.setText("{:02d}:{:02d}:{:02d}".format(hours, minutes, seconds))
 
 
 if __name__ == '__main__':

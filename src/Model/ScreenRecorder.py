@@ -18,6 +18,7 @@ class ScreenRecorder:
         self.is_recording = True
         self.RecTh = threading.Thread(target=self._record)
         self.RecTh.start()
+
     def stop_recording(self):
         self.is_recording = False
 
@@ -44,10 +45,12 @@ class ScreenRecorder:
         if self.fileName is None : 
             current_datetime = datetime.datetime.now()
             self.fileName = current_datetime.strftime("%Y-%m-%d_%H-%M-%S") + ".avi"
+            
         if platform.system() == 'Linux':
             default_folder = os.path.join(os.path.expanduser('~'), 'Videos')
         else:
             default_folder = os.path.join(os.environ.get('USERPROFILE'), 'Videos')
+
         if self.filePath is None : 
             self.filePath = default_folder
 
